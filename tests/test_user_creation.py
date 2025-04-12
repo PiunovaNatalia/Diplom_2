@@ -7,11 +7,11 @@ from data import StatusCode, Api, ResponseMessage
 class TestUserCreation:
     @allure.title("Тестирование создания уникального пользователя")
     def test_user_creation_unique_user(self, generate_random_user_data):
-        name, password, email = generate_random_user_data
+        user_data = generate_random_user_data
         payload = {
-            "name": name,
-            "password": password,
-            "email": email
+            "name": user_data["name"],
+            "password": user_data["password"],
+            "email": user_data["email"],
         }
         response = requests.post(Api.USER_REGISTER, data=payload)
 
@@ -22,11 +22,11 @@ class TestUserCreation:
 
     @allure.title("Тестирование создания пользователя с данными существующего пользователя")
     def test_user_creation_if_already_exist(self, register_new_user):
-        name, password, email, _, _ = register_new_user
+        user_data = register_new_user
         payload = {
-            "name": name,
-            "password": password,
-            "email": email
+            "name": user_data["name"],
+            "password": user_data["password"],
+            "email": user_data["email"],
         }
         response = requests.post(Api.USER_REGISTER, data=payload)
 
