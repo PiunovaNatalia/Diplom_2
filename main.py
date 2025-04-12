@@ -26,17 +26,34 @@ payload = {
 }
 
 response = requests.post(Api.USER_REGISTER, data=payload)
+r = response.json()
+access_token = r["accessToken"]
+refresh_token = r["refreshToken"]
 
+# response = requests.post(Api.USER_LOGIN, data=payload)
+# print(response.json())
 
-d = {
-    "success": True,
-    "user":{
-        "email":"wnmeugtqaa_zlkkd@testmail.ru",
-        "name":"wnmeugtqaa"
-    },
-     "accessToken":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjRjM2M3OWVkMjgwMDAxYjViYWY4ZSIsImlhdCI6MTc0NDA5NDE1MSwiZXhwIjoxNzQ0MDk1MzUxfQ.skmYNLOToO__NwhASD6xLRCYFirmvRrAcTb4iNfGGXY",
-     "refreshToken":"7d6597e537b40eff33b52a31fd40d028a103b555957c0b465054563ee7968ee867bf7bfbabeaec31"
+payload = {
+    "authorization": f"{access_token}"
 }
-import json
+response = requests.delete(Api.USER_INFO, headers=payload)
+
+# {'success': True, 'message': 'User successfully removed'}
+# 202
+
+
+print(response.json())
+#
+#
+# d = {
+#     "success": True,
+#     "user":{
+#         "email":"wnmeugtqaa_zlkkd@testmail.ru",
+#         "name":"wnmeugtqaa"
+#     },
+#      "accessToken":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjRjM2M3OWVkMjgwMDAxYjViYWY4ZSIsImlhdCI6MTc0NDA5NDE1MSwiZXhwIjoxNzQ0MDk1MzUxfQ.skmYNLOToO__NwhASD6xLRCYFirmvRrAcTb4iNfGGXY",
+#      "refreshToken":"7d6597e537b40eff33b52a31fd40d028a103b555957c0b465054563ee7968ee867bf7bfbabeaec31"
+# }
+# import json
 
 print(response.status_code)
